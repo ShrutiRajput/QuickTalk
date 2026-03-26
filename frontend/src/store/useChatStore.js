@@ -39,13 +39,21 @@ export const useChatStore = create((set,get)=>({
             const response = await axiosInstance.get("/messages/chats")
             set({chats:response.data})
         }catch(error){
-            toast.error("Failed to load chat partners")
-            console.log(error.response.data.message)
+            toast.error(error?.response?.data?.message || "Failed to load chat partners")
         }finally{
             set({isUserLoading:false})
         }
+    },
+    getMessagesByUserId:async(userId)=>{
+        set({isMessagesLoading:true})
+        try{
+            const response = await axiosInstance.get(`/messages/${userId}`);
+            set({messages:response.data})
+        }catch(error){
+            toast.error(error?.response?.data?.message || "Failed to load messages")
+        }finally{
+           set({isMessagesLoading:false})
+        }
     }
-
-
 }))
     
