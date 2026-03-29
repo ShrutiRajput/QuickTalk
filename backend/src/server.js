@@ -12,7 +12,7 @@ const app = express();
 const __dirname = path.resolve();
 
 const PORT = ENV.PORT || 3000;
-app.use(express.json()); //req.body will be undefined without this middleware
+app.use(express.json( {limit:"5mb"})); //req.body will be undefined without this middleware
 app.use(cors({origin: ENV.CLIENT_URL, credentials: true})); //allow cookies to be sent from frontend to backend
 app.use(cookieParser());
 
