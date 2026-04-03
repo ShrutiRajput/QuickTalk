@@ -1,5 +1,4 @@
 import React from "react";
-import { useAuthStore } from "../store/useAuthStore";
 import { useChatStore } from "../store/useChatStore";
 import BorderAnimatedContainer from "../components/BorderAnimatedContainer";
 import ChatContainer from "../components/ChatContainer";
@@ -9,7 +8,6 @@ import ContactList from "../components/ContactList";
 import ProfileHeader from "../components/ProfileHeader";
 import ActiveTabSwitch from "../components/ActiveTabSwitch";
 function ChatPage() {
-  const { logout } = useAuthStore();
   const { activeTab, selectedUser } = useChatStore();
   return (
     <div className="relative w-full max-w-6xl h-[800px]">
@@ -27,7 +25,6 @@ function ChatPage() {
           {selectedUser ? <ChatContainer /> : <NoConversationPlaceholder />}
         </div>
       </BorderAnimatedContainer>
-      <button onClick={() => logout()}>Logout</button>
     </div>
   );
 }
