@@ -63,7 +63,7 @@ export default function ProfileHeader() {
         <div className="flex gap-4 items-center">
           {/* Logout btn */}
           <button className="text-slate-400 hover:text-slate-200 transition-colors">
-            <LogOutIcon className="size-5" />
+            <LogOutIcon className="size-5" onClick={() => logout()} />
           </button>
           <button
             className="text-slate-400 hover:text-slate-200 transition-colors"
