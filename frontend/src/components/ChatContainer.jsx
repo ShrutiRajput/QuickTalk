@@ -7,7 +7,7 @@ import MessagesLoadingSkeleton from "./MessagesLoadingSkeleton";
 import MessageInput from "./MessageInput";
 
 export default function ChatContainer() {
-  const { getMessagesByUserId, isMessagesLoading, messages, selectedUser } = useChatStore();
+  const { getMessagesByUserId, isMessagesLoading, messages, selectedUser, subscribeToMessages, unsubscribeFromMessages } = useChatStore();
   const { authUser } = useAuthStore();
   const messageEndRef = useRef(null);
 
@@ -15,7 +15,11 @@ export default function ChatContainer() {
     if (!selectedUser?._id) return; // ✅ FIX
 
     getMessagesByUserId(selectedUser._id);
-  }, [selectedUser, getMessagesByUserId]);
+    subscribeToMessages()
+
+    //cleanup
+    return ()=> unsubscribeFromMessages()
+  }, [selectedUser, getMessagesByUserId, subscribeToMessages, unsubscribeFromMessages]);
 
   useEffect(() => {
     if (messageEndRef.current) {
@@ -23,9 +27,11 @@ export default function ChatContainer() {
     }
   }, [messages]);
 
+
+
   return (
     <>
-      <ChatHeader />
+      <ChatHea der />
       <div className="flex-1 px-6 overflow-y-auto py-8">
         {messages.length > 0 && !isMessagesLoading ? (
           <div className="max-w-3xl mx-auto space-y-6">
